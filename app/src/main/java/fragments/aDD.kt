@@ -1,60 +1,125 @@
 package fragments
 
+import Model.sTORAGE
+import Model.uSER
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import com.example.week6_wangchhu.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [aDD.newInstance] factory method to
- * create an instance of this fragment.
- */
 class aDD : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val TAG : String = "Add Student"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var fullname : EditText
+    private lateinit var agetxt : EditText
+    private lateinit var male : RadioButton
+    private lateinit var female : RadioButton
+    private lateinit var others : RadioButton
+    private lateinit var rdg : RadioGroup
+    private lateinit var address : EditText
+    private lateinit var add : Button
+    private lateinit var Imgurl: EditText
+
+    private lateinit var gender :String
+
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_a_d_d, container, false)
+        val view =inflater.inflate(R.layout.fragment_a_d_d,container,false)
+        return  view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment aDD.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            aDD().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fullname = view!!.findViewById(R.id.fullname)
+        agetxt = view!!.findViewById(R.id.age)
+        male = view!!.findViewById(R.id.rdoMale)
+        female = view!!.findViewById(R.id.rdoFemale)
+        others = view!!.findViewById(R.id.rdoOther)
+        rdg = view!!.findViewById(R.id.radio)
+        address = view!!.findViewById(R.id.address)
+        add = view!!.findViewById(R.id.studentadd)
+        Imgurl = view!!.findViewById(R.id.Imgurl)
+
+
+        male.setOnClickListener(){
+            gender="Male"
+        }
+        female.setOnClickListener(){
+            gender="Female"
+        }
+        others.setOnClickListener(){
+            gender="Others"
+        }
+        add.setOnClickListener(){
+            getData(fullname,agetxt,address,gender, Imgurl)
+
+        }
+
+    }
+
+    private fun getData(fullname: EditText?, agetxt: EditText?, address: EditText?, gender: String, Imgurl: EditText) {
+        val fullName :String = fullname?.text.toString()
+        val ageS :String = agetxt?.text.toString()
+        val Address :String = address?.text.toString()
+        val gen :String = gender
+        val url :String = Imgurl.text.toString()
+
+
+        if (TextUtils.isEmpty(fullName)){
+            fullname?.setError("Please enter the name")
+            fullname?.requestFocus()
+        }
+        else if (TextUtils.isEmpty(ageS)){
+            agetxt?.setError("Please enter the age")
+            agetxt?.requestFocus()
+
+        }
+        else if (TextUtils.isEmpty(Address)){
+            address?.setError("Please enter the address")
+            address?.requestFocus()
+
+        }
+        else if (TextUtils.isEmpty(url)){
+            Imgurl.setError("Please enter the image url")
+            Imgurl.requestFocus()
+
+        }
+        else if (gen.isEmpty()){
+            Toast.makeText(context,"Enter your gender",Toast.LENGTH_SHORT).show()
+
+        }
+        else if (!url.contains("https://")){
+            Toast.makeText(context,"Url invalid",Toast.LENGTH_SHORT).show()
+        }
+
+        else {
+            Log.d(TAG, "getData: "+
+                    "Full Name: "+fullName+
+                    "Age: "+ ageS+
+                    "Address: "+ Address+
+                    "Gender: "+ gender
+            )
+
+            sTORAGE().appendStudent(uSER(fullName, ageS, Address, gender,url))
+            Toast.makeText(context,"Student added",Toast.LENGTH_SHORT).show()
+
+
+            fullname?.setText("")
+            agetxt?.setText("")
+            address?.setText("")
+            rdg.clearCheck()
+            Imgurl.setText("")
+        }
     }
 }
