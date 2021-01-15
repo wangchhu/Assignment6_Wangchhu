@@ -17,6 +17,7 @@
         />
 
     <EditText
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Username"
@@ -26,14 +27,17 @@
         />
 
     <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Password"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
+        app:passwordToggleEnabled="true"
         />
     <Button
+        android:id="@+id/btnsignin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
