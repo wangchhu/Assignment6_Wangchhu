@@ -1,5 +1,6 @@
 package Adapter
 
+import Model.sTORAGE
 import Model.uSER
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.week6_wangchhu.R
 import java.nio.file.Files.delete
 
@@ -37,7 +39,7 @@ class StudentAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
         val view : View
-        view = LayoutInflater.from(parent.context).inflate(R.layout.student_item_layout, parent, false)
+        view = LayoutInflater.from(parent.context).inflate(R.layout.student, parent, false)
 
         return StudentViewHolder(view)
     }
@@ -55,7 +57,7 @@ class StudentAdapter (
         }
 
         holder.del.setOnClickListener(){
-            val removeStudent = Storage()
+            val removeStudent = sTORAGE()
             removeStudent.deleteStudent(getPosition)
             notifyItemRemoved(position)
             notifyDataSetChanged()
