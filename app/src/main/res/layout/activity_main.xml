@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="123dp"
         android:layout_marginTop="-70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:src="@drawable/soft"
         />
 
@@ -34,16 +36,21 @@
         android:hint="Password"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
-        app:passwordToggleEnabled="true"
+       android:inputType="textPassword"
         />
+
     <Button
         android:id="@+id/btnsignin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:text="Sign In"/>
+        android:layout_marginRight="100dp"
+        android:background="@color/cardview_shadow_end_color"
+        android:fontFamily="sans-serif-black"
+        android:text="Sign In"
+        android:textColor="@color/design_default_color_primary_variant"
+        android:textSize="20dp" />
 
 
 

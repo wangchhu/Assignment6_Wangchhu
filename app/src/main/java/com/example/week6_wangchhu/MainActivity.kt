@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     val username=username.text.toString()
                     val password=password.text.toString()
                     nullCheck()
-                    if(username=="admin" && password=="admin")
+                    if(username=="wangchhu" && password=="tamang")
                     {
                         Toast.makeText(this,"Login Successfull", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, home::class.java)
